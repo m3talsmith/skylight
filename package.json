@@ -4,14 +4,18 @@
   "description": "A demo toggling a light switch on a page over skynet",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Michael Christenson II",
   "license": "ISC",
   "dependencies": {
     "socket.io": "^0.9.16",
     "socket.io-client": "^0.9.16",
     "skynet": "0.0.33",
-    "express": "^3.5.1"
+    "express": "^3.5.1",
+    "nodemon": "^1.0.17",
+    "requirejs": "^2.1.11",
+    "gulp": "^3.6.0"
   }
 }

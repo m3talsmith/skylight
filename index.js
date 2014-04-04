@@ -6,12 +6,8 @@ var express = require('express'),
 var Light  = require('./lib/light'),
     Switch = require('./lib/switch');
 
-var app = express();
+var app = express()
 
-app.use(
-  express.static(
-    path.join(__dirname, 'public')
-  )
-);
+app.use(express.static(path.join(__dirname, 'public')));
 
 socket.listen(app.listen(1337));
