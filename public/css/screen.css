@@ -1,0 +1,22 @@
+#light, #switch {
+  position: relative;
+  clear:    both;
+  width:    50px;
+}
+
+#light {
+  background-image: url(/images/light_bulbs.jpg);
+  height: 75px;
+}
+
+#light.on  {background-position: -43px;}
+#light.off {background-position:  -1px;}
+
+#switch {
+  background-image: url(/images/switch.png);
+  height: 95px;
+  cursor: pointer;
+}
+
+#switch.on  {background-position:   0px;}
+#switch.off {background-position: -50px;}
