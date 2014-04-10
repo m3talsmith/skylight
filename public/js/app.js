@@ -1,9 +1,8 @@
 var socketUrl = 'http://localhost:1337';
 var app = {
   mice : [],
-  mouseListener : io.connect(socketUrl),
+  socket : io.connect(socketUrl),
   addMouse : function (userMouse) {
-    console.log('adding', userMouse.id);
     if(!(_.find(app.mice, {id: userMouse.id}))) app.mice.push(userMouse);
     userMouse.start();
     return app.mice;
@@ -11,6 +10,11 @@ var app = {
   getMouse : function (id) {
     return _.find(app.mice, {id: id});
   },
+  removeMouse : function (id) {
+    var mouse = _.find(app.mice, {id: id});
+    if(mouse) mouse.stop();
+    app.mice  = _.reject(app.mice, {id: id});
+  }, 
   addLocalMouse : function () {
     var mouse = new UserMouse({
       local : true,
@@ -41,7 +45,7 @@ var app = {
 
 app.addLocalMouse();
 
-app.mouseListener
+app.socket
   .on('mouse:connected', function (mouse) {
     if(!app.getMouse(mouse.id)) app.addRemoteMouse(mouse);
   })
@@ -52,6 +56,9 @@ app.mouseListener
     } else if(!knownMouse.local) {
       knownMouse.updatePosition(mouse.x, mouse.y);
     }
+  })
+  .on('socket:disconnect', function (socket) {
+    if(app.getMouse(socket.id)) app.removeMouse(socket.id);
   });
 
 

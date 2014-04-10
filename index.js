@@ -40,6 +40,9 @@ io.sockets.on('connection', function (socket) {
         y : mouse.y
       });
     })
+    .on('disconnect', function () {
+      io.sockets.emit('socket:disconnect', {id: socket.id});
+    })
     .on('switch:on', function (state, callback) {
       if(callback) callback('switch is turned on at server for ' + socket.id);
       socket.broadcast.emit('light:on', {state: 1});

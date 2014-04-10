@@ -8,6 +8,9 @@ function UserMouse (options) {
     sampleTime     : options.sampleTime || 3000,
     socket         : options.socket,
     id             : options.id,
+    deleteElement : function () {
+      document.body.removeChild(instance.element());
+    },
     updateElement : function () {
       var instanceElement = instance.element();
 
@@ -59,6 +62,11 @@ function UserMouse (options) {
         instance.samplePosition();
       } else {
         instance.createElement();
+      }
+    },
+    stop : function () {
+      if(!instance.local) {
+        instance.deleteElement();
       }
     }
   };
