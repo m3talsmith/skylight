@@ -41,11 +41,11 @@ io.sockets.on('connection', function (socket) {
       });
     })
     .on('switch:on', function (state, callback) {
-      callback('switch is turned on at server for ' + socket.id);
+      if(callback) callback('switch is turned on at server for ' + socket.id);
       socket.broadcast.emit('light:on', {state: 1});
     })
     .on('switch:off', function (state, callback) {
-      callback('switch is turned off at server for ' + socket.id);
+      if(callback) callback('switch is turned off at server for ' + socket.id);
       socket.broadcast.emit('light:off', {state: 0});
     });
 });
