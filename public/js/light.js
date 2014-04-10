@@ -1,6 +1,4 @@
 var Light = function(options) {
-  if(!options.socket) console.log('socket is a required field');
-
   var instance       = StateMachine.call(this);
   instance.socket    = options.socket;
   instance.elementId = options.elementId || 'light';
@@ -32,24 +30,18 @@ var Light = function(options) {
 
   instance.socket
     .on('connect', function () {
-      console.log('light is online');
       instance.elementOff();
     })
     .on('disconnect', function () {
-      console.log('light is offline');
       instance.elementOff();
     })
     .on('light:on', function () {
-      console.log('turning on light...');
       instance.turnOn(function () {
-        console.log('light turned on over socket');
         instance.elementOn();
       });
     })
     .on('light:off', function () {
-      console.log('turning off light...');
       instance.turnOn(function () {
-        console.log('light turned off over socket')
         instance.elementOff();
       });
     });

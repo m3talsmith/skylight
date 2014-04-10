@@ -16,7 +16,7 @@ var io = socket.listen(server);
 
 io.sockets.on('connection', function (socket) {
   socket
-    .on('mouse:move', function (coordinates, callback) {
+    .on('mouse:move', function (mouse, callback) {
       if(callback) callback('coordinates recorded for ' + socket.id);
       socket.broadcast.emit('mouse:move', {
         id: socket.id,

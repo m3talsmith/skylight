@@ -1,6 +1,4 @@
 var Switch = function(lights, options) {
-  if(!options.socket) console.log('socket is a required field');
-
   var instance       = StateMachine.call(this);
   instance.socket    = options.socket;
   instance.lights    = lights || [];
@@ -33,49 +31,35 @@ var Switch = function(lights, options) {
   instance.toggle = function () {
     if(instance.state === 0) {
       instance.turnOn(function () {
-        console.log('turning on switch...');
         instance.lightsOn();
         instance.elementOn();
 
-        instance.socket.emit('switch:on', 'on', function (data) {
-          console.log(data);
-          console.log('switched turned on. Lights should glow yo!');
-        });
+        instance.socket.emit('switch:on', 'on');
       });
     } else {
       instance.turnOff(function () {
-        console.log('turning off switch...');
         instance.lightsOff();
         instance.elementOff();
 
-        instance.socket.emit('switch:off', 'off', function (data) {
-          console.log(data);
-          console.log('switched turned off. Lights should dim yo!');
-        });
+        instance.socket.emit('switch:off', 'off');
       });
     }
   }
 
   instance.socket
     .on('connect', function () {
-      console.log('switch is online');
       instance.elementOff();
     })
     .on('disconnect', function () {
-      console.log('switch is offline');
       instance.elementOff();
     })
     .on('light:on', function () {
-      console.log('turning on switch...');
       instance.turnOn(function () {
-        console.log('switch turned on over socket');
         instance.elementOn();
       });
     })
     .on('light:off', function () {
-      console.log('turning off switch...');
       instance.turnOff(function () {
-        console.log('switch turned off over socket');
         instance.elementOff();
       });
     });
