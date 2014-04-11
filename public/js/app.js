@@ -3,7 +3,7 @@ var app = {
   mice : [],
   socket : io.connect(socketUrl),
   addMouse : function (userMouse) {
-    if(!(_.find(app.mice, {id: userMouse.id}))) app.mice.push(userMouse);
+    if(!(app.getMouse(userMouse.id))) app.mice.push(userMouse);
     userMouse.start();
     return app.mice;
   },
@@ -11,7 +11,7 @@ var app = {
     return _.find(app.mice, {id: id});
   },
   removeMouse : function (id) {
-    var mouse = _.find(app.mice, {id: id});
+    var mouse = app.getMouse(id);
     if(mouse) mouse.stop();
     app.mice  = _.reject(app.mice, {id: id});
   }, 
