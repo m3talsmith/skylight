@@ -14,6 +14,19 @@ var Light = function(options) {
   instance.elementOff = function () {
     instance.element().setAttribute('class', 'off');
   };
+    
+  var superTurnOn  = instance.turnOn,
+      superTurnOff = instance.turnOff;
+
+  instance.turnOn  = function (callback) {
+    instance.elementOn();
+    superTurnOn(callback);
+  };
+  
+  instance.turnOff = function (callback) {
+    instance.elementOff();
+    superTurnOff(callback);
+  };
 
   instance.socket
     .on('connect', function () {
